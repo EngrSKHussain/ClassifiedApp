@@ -10,12 +10,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
 import com.skhproject.classifiedapp.R
 import com.skhproject.classifiedapp.application.ClassifiedApp
 import com.skhproject.classifiedapp.databinding.HomeFragmentBinding
 import com.skhproject.classifiedapp.db.entity.Listing
 import com.skhproject.classifiedapp.listeners.ClickListener
+import com.skhproject.classifiedapp.ui.activity.MainActivity
 import com.skhproject.classifiedapp.ui.adapter.ClassifiedListAdapter
+import com.skhproject.classifiedapp.ui.fragment.detail.DetailFragment
 
 class HomeFragment : Fragment(), ClickListener, HomeInteractions {
 
@@ -37,7 +41,7 @@ class HomeFragment : Fragment(), ClickListener, HomeInteractions {
             setObservers()
             loadData()
         } catch (e: Exception) {
-            Log.d(TAG, "Exception in onCreateView: " + e.localizedMessage)
+            Log.e(TAG, "Exception in onCreateView: " + e.localizedMessage)
         }
         return binding.root
     }
@@ -52,7 +56,7 @@ class HomeFragment : Fragment(), ClickListener, HomeInteractions {
         try {
             viewModel.fetchAndSaveListingsFromServer(this);
         } catch (e: Exception) {
-            Log.d(TAG, "Exception in loadData: " + e.localizedMessage)
+            Log.e(TAG, "Exception in loadData: " + e.localizedMessage)
         }
     }
 
@@ -67,7 +71,7 @@ class HomeFragment : Fragment(), ClickListener, HomeInteractions {
                 viewLifecycleOwner,
                 Observer { t -> adapterClassified.updateContent(t) })
         } catch (e: Exception) {
-            Log.d(TAG, "Exception in setObservers: " + e.localizedMessage)
+            Log.e(TAG, "Exception in setObservers: " + e.localizedMessage)
         }
     }
 
@@ -83,28 +87,38 @@ class HomeFragment : Fragment(), ClickListener, HomeInteractions {
 
             binding.pullToRefresh.setOnRefreshListener { loadData() }
         } catch (e: Exception) {
-            Log.d(TAG, "Exception in setView: " + e.localizedMessage)
+            Log.e(TAG, "Exception in setView: " + e.localizedMessage)
         }
 
     }
 
-    override fun itemClick(item: Listing) {
-        Toast.makeText(context, "${item.name}", Toast.LENGTH_SHORT).show()
+    override fun itemClick(item: Listing, view: View) {
+
+        /*INFO:
+        * This method will handle the item click
+        * */
+
+        try {
+            val bundle = Bundle()
+            bundle.putString(DetailFragment.ARG_UID, item.uid)
+
+            findNavController(view).navigate(R.id.action_fragment_home_to_fragment_details, bundle)
+        } catch (e: Exception) {
+            Log.e(TAG, "Exception in itemClick: " + e.localizedMessage)
+        }
+
     }
 
     override fun showLoading(string: String?) {
         binding.pullToRefresh.isRefreshing = true
-       // Toast.makeText(context, "${string}", Toast.LENGTH_SHORT).show()
     }
 
     override fun dataLoaded() {
         binding.pullToRefresh.isRefreshing = false
-        //Toast.makeText(context, "Data loaded", Toast.LENGTH_SHORT).show()
     }
 
 
     override fun dataLoadingFailed(string: String?) {
         binding.pullToRefresh.isRefreshing = false
-        //Toast.makeText(context, "${string}", Toast.LENGTH_SHORT).show()
     }
 }

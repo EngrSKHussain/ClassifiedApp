@@ -6,12 +6,14 @@
     app:startDestination="@id/fragment_home">
     <fragment
         android:id="@+id/fragment_home"
-        android:name="com.skhproject.classifiedapp.ui.fragment.home.HomeFragment">
+        android:name="com.skhproject.classifiedapp.ui.fragment.home.HomeFragment"
+        tools:layout="@layout/home_fragment">
         <action
-            android:id="@+id/action_home_fragment_to_detail_fragment"
-            app:destination="@id/action_home_fragment_to_detail_fragment" />
+            android:id="@+id/action_fragment_home_to_fragment_details"
+            app:destination="@id/fragment_details" />
     </fragment>
     <fragment
         android:id="@+id/fragment_details"
-        android:name="com.skhproject.classifiedapp.ui.fragment.detail.DetailFragment" />
+        android:name="com.skhproject.classifiedapp.ui.fragment.detail.DetailFragment"
+        tools:layout="@layout/detail_fragment"/>
 </navigation>

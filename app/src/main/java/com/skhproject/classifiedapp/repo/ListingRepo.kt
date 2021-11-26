@@ -1,6 +1,7 @@
 package com.skhproject.classifiedapp.repo
 
 import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
 import com.skhproject.classifiedapp.db.dao.ListingDao
 import com.skhproject.classifiedapp.db.entity.Listing
 import kotlinx.coroutines.flow.Flow
@@ -11,10 +12,15 @@ class ListingRepo(private val listingDao: ListingDao) {
 
     // Room executes all queries on a separate thread.
     // Observed Flow will notify the observer when the data has changed.
-    val allListing: Flow<List<Listing>> = listingDao.getClassifiedAddsFlow()
+    val allListing: Flow<List<Listing>> = listingDao.getAllListingFlow()
     // By default Room runs suspend queries off the main thread, therefore, we don't need to
     // implement anything else to ensure we're not doing long running database work
     // off the main thread.
+
+    fun getListingById(uid: String): LiveData<Listing> {
+        return listingDao.getListingByIdLD(uid);
+    }
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(add: Listing) {

@@ -33,7 +33,7 @@ class ClassifiedListAdapter(private val listener: ClickListener) :
 
         val item = mList[position]
         holder.baseView.setOnClickListener {
-            listener.itemClick(item)
+            listener.itemClick(item,holder.baseView)
         }
 
         holder.name.text = item.name

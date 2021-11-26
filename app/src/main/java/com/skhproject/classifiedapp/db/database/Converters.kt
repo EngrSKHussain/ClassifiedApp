@@ -1,4 +1,4 @@
-package com.skhproject.classifiedapp.db.common
+package com.skhproject.classifiedapp.db.database
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

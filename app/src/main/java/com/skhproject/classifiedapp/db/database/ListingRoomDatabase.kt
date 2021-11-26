@@ -5,7 +5,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.skhproject.classifiedapp.db.common.Converters
 import com.skhproject.classifiedapp.db.dao.ListingDao
 import com.skhproject.classifiedapp.db.entity.Listing
 import kotlinx.coroutines.CoroutineScope
