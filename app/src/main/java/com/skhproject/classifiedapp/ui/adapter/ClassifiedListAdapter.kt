@@ -12,7 +12,7 @@ import com.skhproject.classifiedapp.db.entity.Listing
 import com.skhproject.classifiedapp.listeners.ClickListener
 import com.squareup.picasso.Picasso
 
-class ClassifiedListAdapter( private val listener: ClickListener) :
+class ClassifiedListAdapter(private val listener: ClickListener) :
     RecyclerView.Adapter<ClassifiedListAdapter.ViewHolder>() {
 
     private var mList: List<Listing> = ArrayList<Listing>()
@@ -40,13 +40,9 @@ class ClassifiedListAdapter( private val listener: ClickListener) :
         holder.price.text = item.price
         holder.date.text = item.created_at
 
-        Picasso.get().load(item.image_urls_thumbnails.get(0)).into(holder.thumbnail)
-
-        // sets the image to the imageview from our itemHolder class
-//        holder.imageView.setImageResource(ItemsViewModel.image)
-
-        // sets the text to the textview from our itemHolder class
-//        holder.textView.text = ItemsViewModel.text
+        if (item.image_urls_thumbnails.size != 0) {
+            Picasso.get().load(item.image_urls_thumbnails.get(0)).into(holder.thumbnail)
+        }
 
     }
 
@@ -63,7 +59,7 @@ class ClassifiedListAdapter( private val listener: ClickListener) :
     // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
 
-
+        //init all the views
         val baseView = itemView.findViewById<CardView>(R.id.parentCL)
         val name = itemView.findViewById<TextView>(R.id.name)
         val price = itemView.findViewById<TextView>(R.id.price)

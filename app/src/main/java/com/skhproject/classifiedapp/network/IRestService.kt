@@ -7,6 +7,6 @@ import retrofit2.http.GET
 interface IRestService {
 
     @GET("/default/dynamodb-writer")
-    fun getClassified(): Call<ClassifiedResponse>
+    fun getListing(): Call<ClassifiedResponse>
 
 }
