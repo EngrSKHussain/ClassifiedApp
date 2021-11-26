@@ -27,6 +27,7 @@ import okhttp3.internal.Util;
 
 public class DetailFragment extends Fragment {
 
+
     private final String TAG = "DetailFragment";
     private DetailViewModel detailViewModel;
     private DetailFragmentBinding binding;
