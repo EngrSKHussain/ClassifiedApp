@@ -116,7 +116,9 @@ public class DetailFragment extends Fragment {
             binding.carouselView.setImageListener(new ImageListener() {
                 @Override
                 public void setImageForPosition(int i, ImageView imageView) {
-                    Picasso.get().load(listing.getImage_urls().get(i)).into(imageView);
+                    imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                    Picasso.get().load(listing.getImage_urls().get(i)).fit()
+                            .centerInside().into(imageView);
                 }
             });
             binding.carouselView.setPageCount(listing.getImage_urls().size());

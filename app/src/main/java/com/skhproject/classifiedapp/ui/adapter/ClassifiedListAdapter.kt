@@ -33,7 +33,7 @@ class ClassifiedListAdapter(private val listener: ClickListener) :
 
         val item = mList[position]
         holder.baseView.setOnClickListener {
-            listener.itemClick(item,holder.baseView)
+            listener.itemClick(item, holder.baseView)
         }
 
         holder.name.text = item.name
@@ -41,7 +41,11 @@ class ClassifiedListAdapter(private val listener: ClickListener) :
         holder.date.text = item.created_at
 
         if (item.image_urls_thumbnails.size != 0) {
-            Picasso.get().load(item.image_urls_thumbnails.get(0)).into(holder.thumbnail)
+
+            Picasso.get().load(item.image_urls_thumbnails.get(0))
+                .fit()
+                .centerInside()
+                .into(holder.thumbnail)
         }
 
     }
